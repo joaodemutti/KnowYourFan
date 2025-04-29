@@ -15,7 +15,7 @@ class UserRepository:
         user = user_ref.get()
         if user.exists:
             return User(**user.to_dict())
-        return None
+        raise ValueError("Usuário não encontrado.")
 
     def get_user_by_email(self, email: str):
         query = self.collection.where('email', '==', email).limit(1).stream()

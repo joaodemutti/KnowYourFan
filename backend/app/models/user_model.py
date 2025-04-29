@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional
 
 class UserCreateRequest(BaseModel):
@@ -12,7 +12,7 @@ class UserCreateRequest(BaseModel):
     purchases_last_year: List[str]
 
 class User(BaseModel):
-    id: str
+    id: Optional[str] = Field(default=None, exclude=True)
     email: str
     password: str
     name: str

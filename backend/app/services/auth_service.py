@@ -16,7 +16,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("JWT_EXPIRE_MINUTES", 60))
 
 def create_access_token(data: dict):
     to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    expire = datetime.utcnow() + timedelta(days=1,minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
@@ -36,4 +36,4 @@ def login_user(email: str, password: str):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Senha inválida")
 
     token = create_access_token({"sub": user["id"]})
-    return {"access_token": token, "token_type": "bearer"}
+    return token
