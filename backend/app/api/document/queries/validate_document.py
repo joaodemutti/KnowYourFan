@@ -1,6 +1,6 @@
 from app.repositories.document_repository import DocumentRepository
 from app.services.storage_service import download_file
-from app.services.openai_service import validate_document_image_bytes
+from app.services.google_service import validate_document_image_bytes
 from io import BytesIO
 import os
 

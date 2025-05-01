@@ -1,0 +1,33 @@
+<div class="container login mt-5 border border-2 rounded p-5 bg-white">
+  <form (ngSubmit)="login()"> <!-- Bind form submit to login method -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="email" 
+          [(ngModel)]="credentials.email" 
+          name="email" 
+          required 
+          aria-describedby="email">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Senha</label>
+        <input 
+          type="password" 
+          class="form-control" 
+          id="password" 
+          [(ngModel)]="credentials.password" 
+          name="password" 
+          required>
+      </div>
+      <div class="d-flex flex-column justify-content-center align-items-center mt-5 mb-3 ">
+          <button type="submit" class="btn btn-dark">Entrar</button>
+          <a id="signin" class="form-text" href="/signin">Cadastrar-se</a>
+      </div>
+
+      <div class="d-flex justify-content-center mt-3">
+          <app-facebook-login></app-facebook-login>   
+      </div>
+    </form>
+</div>

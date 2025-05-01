@@ -6,6 +6,9 @@ from dotenv import load_dotenv
 from app.repositories.user_repository import UserRepository
 from fastapi import HTTPException, status
 from passlib.hash import bcrypt
+from app.services.facebook_service import get_user_data
+from app.repositories.user_repository import UserRepository
+from app.models.user_model import User
 
 # Carrega as variáveis do .env
 load_dotenv()
@@ -37,3 +40,26 @@ def login_user(email: str, password: str):
 
     token = create_access_token({"sub": user["id"]})
     return token
+
+def facebook_user(access_token:str):
+    json = get_user_data(access_token)
+    if(json):
+        id = json["id"]
+        users = UserRepository()
+
+        user = users.get_user_by_facebook(id)
+
+        if not user:
+            user = users.get_user_by_email(json["email"])
+            if not user:
+                user_id = users.create_user(User(facebook=json["id"],name=json["name"],email=json["email"]))
+                token = create_access_token({"sub": user_id})
+            else:
+                token = create_access_token({"sub": user.id})
+        else:
+            token = create_access_token({"sub": user.id})
+
+        return token
+    
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)

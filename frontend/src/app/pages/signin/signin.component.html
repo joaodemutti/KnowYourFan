@@ -1,0 +1,98 @@
+<div class="container login mt-5 border border-2 rounded p-5 bg-white">
+    <form (ngSubmit)="onSubmit()" #signinForm="ngForm">
+      <!-- Email Field -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input 
+          type="email" 
+          class="form-control" 
+          id="email" 
+          [(ngModel)]="user.email" 
+          name="email" 
+          required 
+          aria-describedby="emailHelp"
+          #email="ngModel">
+        <div *ngIf="email.invalid && email.touched" class="text-danger">Email is required</div>
+      </div>
+  
+      <!-- Name Field -->
+      <div class="mb-3">
+        <label for="name" class="form-label">Nome</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="name" 
+          [(ngModel)]="user.name" 
+          name="name" 
+          required
+          #name="ngModel">
+        <div *ngIf="name.invalid && name.touched" class="text-danger">Name is required</div>
+      </div>
+  
+      <!-- Address Field -->
+      <div class="mb-3">
+        <label for="address" class="form-label">Endereço</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="address" 
+          [(ngModel)]="user.address" 
+          name="address">
+      </div>
+  
+      <!-- CPF Field -->
+      <div class="mb-3">
+        <label for="cpf" class="form-label">CPF</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="cpf" 
+          [(ngModel)]="user.cpf" 
+          name="cpf">
+      </div>
+  
+      <!-- Interests Field -->
+      <div class="mb-3">
+        <label for="interests" class="form-label">Interesses</label>
+        <div class="input-tags">
+          <input 
+            type="text" 
+            class="form-control" 
+            id="interests" 
+            [(ngModel)]="newInterest" 
+            (keydown.enter)="addInterest()" 
+            placeholder="Press Enter to add interest"
+            name="interests">
+          
+          <!-- Display Tags -->
+          <div class="tags-container mt-2">
+            <span *ngFor="let interest of user.interests" class="badge bg-primary me-2">
+              {{ interest }} 
+              <span class="remove-tag" (click)="removeInterest(interest)">×</span>
+            </span>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Password Field -->
+      <div class="mb-3" *ngIf="!(api.isLoggedIn() | async)" >
+        <label for="password" class="form-label">Senha</label>
+        <input 
+          type="password" 
+          class="form-control" 
+          id="password" 
+          [(ngModel)]="user.password" 
+          name="password" 
+          required
+          #password="ngModel">
+        <div *ngIf="password.invalid && password.touched" class="text-danger">Password is required</div>
+      </div>
+      
+      <!-- Submit Button -->
+      <div class="d-flex flex-column justify-content-center align-items-center mt-5 mb-3">
+        <button type="submit" class="btn btn-dark" [disabled]="signinForm.invalid">Salvar</button>
+        <a id="login" class="form-text mt-3" href="/login">Já tem uma conta? Faça Login</a>
+      </div>
+    </form>
+  </div>
+  

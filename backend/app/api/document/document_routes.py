@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Depends,UploadFile,File,Form
+from fastapi import APIRouter, Depends,UploadFile,File,Form
 from app.api.document.commands.upload_document import UploadDocumentHandler
 from app.api.document.queries.validate_document import ValidateDocumentHandler
 from app.api.document.queries.download_document import DownloadDocumentHandler

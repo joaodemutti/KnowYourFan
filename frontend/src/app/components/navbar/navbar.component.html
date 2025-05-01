@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg bg-white">
+    <div class="container-fluid">
+        <a class="navbar-brand" routerLink="/">KnowYourFan</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/" >Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/documents">Documentos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/documents">Vincular Rede Social</a>
+            <li class="nav-item">
+            <a class="nav-link" href="/documents">E-Sports</a>
+            </li>
+            </ul>
+            <div  *ngIf="api.isLoggedIn() | async; else loginButton">
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{username}}
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/signin">Editar</a></li>
+                      <li><a class="dropdown-item" href="#" (click)="logout()">Sair</a></li>
+                    </ul>
+                </div>
+            </div>
+            <ng-template #loginButton>
+                <a class="btn btn-dark" href="/login" >Entrar</a>
+            </ng-template>
+        </div>
+
+    </div>
+</nav>

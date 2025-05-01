@@ -1,6 +1,7 @@
 from app.repositories.user_repository import UserRepository
 from app.models.user_model import UserCreateRequest
 from passlib.hash import bcrypt
+from app.models.user_model import User
 
 class CreateUserCommand:
     def __init__(self, user_data: UserCreateRequest):
@@ -9,7 +10,7 @@ class CreateUserCommand:
         
     def execute(self):
         user_repository = UserRepository()
-        user_id = user_repository.create_user(self.user_data)
+        user_id = user_repository.create_user(User(**self.user_data.model_dump()))
         return user_id
 
 class CreateUserHandler:
