@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common'
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 declare const FB: any;
 
 @Component({
   selector: 'app-navbar',
   standalone:true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })

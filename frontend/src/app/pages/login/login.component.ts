@@ -1,12 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FacebookLoginComponent } from '../../components/facebook-login/facebook-login.component';
 import { ApiService } from '../../services/api.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  imports: [FacebookLoginComponent,FormsModule],
+  imports: [FacebookLoginComponent,FormsModule,RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone: true,

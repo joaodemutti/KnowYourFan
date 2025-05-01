@@ -8,15 +8,15 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/" >Home</a>
+                <a class="nav-link" routerLink="/" >Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/documents">Documentos</a>
+                <a class="nav-link" routerLink="/documents">Documentos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/documents">Vincular Rede Social</a>
+                <a class="nav-link" routerLink="/documents">Vincular Rede Social</a>
             <li class="nav-item">
-            <a class="nav-link" href="/documents">E-Sports</a>
+            <a class="nav-link" routerLink="/documents">E-Sports</a>
             </li>
             </ul>
             <div  *ngIf="api.isLoggedIn() | async; else loginButton">
@@ -25,13 +25,13 @@
                         {{username}}
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="/signin">Editar</a></li>
+                      <li><a class="dropdown-item" routerLink="/signin">Editar</a></li>
                       <li><a class="dropdown-item" href="#" (click)="logout()">Sair</a></li>
                     </ul>
                 </div>
             </div>
             <ng-template #loginButton>
-                <a class="btn btn-dark" href="/login" >Entrar</a>
+                <a class="btn btn-dark"  routerLink="/login" >Entrar</a>
             </ng-template>
         </div>
 
