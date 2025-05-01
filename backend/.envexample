@@ -1,4 +1,4 @@
-OPENAI_API_KEY=yourkey
+GOOGLE_API_KEY=yourkey
 FIREBASE_STORAGE_BUCKET=appname.appspot.com
 FIREBASE_CREDENTIALS_PATH=./serviceAccountKey.json
 JWT_SECRET_KEY=umasecretkeybemforte
