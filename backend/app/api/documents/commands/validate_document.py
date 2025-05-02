@@ -4,7 +4,7 @@ from app.services.google_service import validate_document_image_bytes
 from io import BytesIO
 import os
 
-class ValidateDocumentQuery:
+class ValidateDocumentCommand:
     def __init__(self, document_id: str, user_id: str):
         self.document_id = document_id
         self.user_id = user_id
@@ -20,6 +20,10 @@ class ValidateDocumentQuery:
 
         result = await validate_document_image_bytes(image_bytes,ext)
 
+        document.valid = (result == "1")
+        
+        document_repository.update_document(self.user_id,document)
+        
         return result
 
 
@@ -29,5 +33,5 @@ class ValidateDocumentHandler:
         self.user_id = user_id
 
     async def handle(self):
-        command = ValidateDocumentQuery(self.document_id, self.user_id)
+        command = ValidateDocumentCommand(self.document_id, self.user_id)
         return await command.execute()

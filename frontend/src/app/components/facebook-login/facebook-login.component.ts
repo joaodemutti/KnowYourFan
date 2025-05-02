@@ -13,27 +13,27 @@ export class FacebookLoginComponent {
   constructor(private apiService: ApiService, private router: Router) {}
 
   loginWithFacebook(): void {
-    FB.getLoginStatus((response:any) =>{
+    FB.getLoginStatus((response: any) => {
       if (response.status === 'connected') {
-        this.apiService.facebook({access_token:response.authResponse.accessToken}).subscribe(()=>{
-            this.router.navigate(['/signin'])
-        })
-      }
-      else {
-        FB.login((response:any) => {
+        this.apiService.facebook({ access_token: response.authResponse.accessToken }).subscribe(() => {
+          if (this.router.url === '/login') {
+            this.router.navigate(['/signin']);
+          }
+        });
+      } else {
+        FB.login((response: any) => {
           if (response.authResponse) {
             console.log('Successfully logged in!', response);
-            this.apiService.facebook({access_token:response.authResponse.accessToken}).subscribe(()=>{
-              this.router.navigate(['/signin'])
-            })
-            
+            this.apiService.facebook({ access_token: response.authResponse.accessToken }).subscribe(() => {
+              if (this.router.url === '/login') {
+                this.router.navigate(['/signin']);
+              }
+            });
           } else {
             console.log('User cancelled login or did not fully authorize.');
-          
           }
         }, { scope: 'email,public_profile' });
       }
-    })
-    
+    });
   }
 }

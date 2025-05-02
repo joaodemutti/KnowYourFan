@@ -19,6 +19,23 @@ class DocumentRepository:
         documents = documents_ref.add(doc_data)
 
         return documents[1].id
+    
+    def update_document(self, user_id:str, document: Document):
+        user_ref = self.collection.document(user_id)
+        user_doc = user_ref.get()
+        
+        if not user_doc.exists:
+            raise ValueError("Usuário não encontrado.")
+
+        document_ref = user_ref.collection("documents").document(document.id)
+
+        doc = document_ref.get()
+        
+        if not doc.exists:
+            raise ValueError("Documento não encontrado.")
+        
+        document_ref.update(document.model_dump(exclude={"id"},exclude_none=True))
+        return None
 
     def get_document(self, user_id:str, document_id: str) -> Document:
         user_ref = self.collection.document(user_id)

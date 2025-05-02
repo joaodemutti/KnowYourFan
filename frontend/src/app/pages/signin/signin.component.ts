@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
+import { BackdropService } from '../../services/backdrop.service';
 
 declare const FB: any
 
@@ -13,6 +14,12 @@ declare const FB: any
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
+  @ViewChild('nameInput') nameInput!: ElementRef;
+  @ViewChild('addressInput') addressInput!: ElementRef;
+  @ViewChild('cpfInput') cpfInput!: ElementRef;
+  @ViewChild('interestsInput') interestsInput!: ElementRef;
+  @ViewChild('submitButton') submitButton!: ElementRef;
+
   user = {
     email: '',
     name: '',
@@ -24,7 +31,7 @@ export class SigninComponent implements OnInit {
 
   newInterest: string = '';  
 
-  constructor(public api: ApiService, private router: Router) {}
+  constructor(public api: ApiService, private router: Router, private backdrop: BackdropService) {}
 
   ngOnInit(): void {
     this.api.isLoggedIn().subscribe(isLoggedIn => {
@@ -32,13 +39,11 @@ export class SigninComponent implements OnInit {
   
         this.api.me().subscribe(user=>{
           if((!user.interests)||user.interests.length==0){
-
             FB.getLoginStatus((response: any) => {
               if (response.status === 'connected') {
                 this.getUserLikes();
               }
             });
-
           }
           else{
             this.user.interests = user.interests
@@ -56,9 +61,7 @@ export class SigninComponent implements OnInit {
   onSubmit() {
     this.api.isLoggedIn().subscribe(isLoggedOn=>{
       if(isLoggedOn){
-        this.api.update(this.user).subscribe(r=>{
-          this.router.navigate(["/"])
-        })
+        this.api.update(this.user)
       }
       else{
           this.api.create(this.user).subscribe(r=>{
@@ -75,21 +78,29 @@ export class SigninComponent implements OnInit {
     const oneYearAgoTimestamp = oneYearAgo.getTime() / 1000;  // Convert to UNIX timestamp
 
     // Fetch user's likes from Facebook
-    FB.api('/me/likes', { fields: 'name,created_time' }, (response: any) => {
-      if (response && response.data) {
-        // Filter the likes to include only those from the last year
-        const filteredLikes = response.data.filter((like: any) => {
-          const likeTime = new Date(like.created_time).getTime() / 1000;  // Convert to UNIX timestamp
-          return (like.created_time == null) || likeTime >= oneYearAgoTimestamp;
-        });
+    try{
+      this.backdrop.show()
 
-        // Save the filtered likes to the user's interests
-        this.user.interests = filteredLikes.map((like: any) => like.name);
-        console.log('User Interests:', this.user.interests);
-      } else {
-        console.log('Error fetching likes', response);
-      }
-    });
+      FB.api('/me/likes', { fields: 'name,created_time' }, (response: any) => {
+        if (response && response.data) {
+          // Filter the likes to include only those from the last year
+          const filteredLikes = response.data.filter((like: any) => {
+            const likeTime = new Date(like.created_time).getTime() / 1000;  // Convert to UNIX timestamp
+            return (like.created_time == null) || likeTime >= oneYearAgoTimestamp;
+          });
+  
+          // Save the filtered likes to the user's interests
+          this.user.interests = filteredLikes.map((like: any) => like.name);
+        } else {
+          console.log('Error fetching likes', response);
+        }
+        this.backdrop.hide()
+
+      });
+    }
+    catch{
+      this.backdrop.hide()
+    }
   }
 
   addInterest(): void {

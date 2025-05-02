@@ -5,7 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse" id="navbarNav" style="justify-items: center;">
             <ul class="navbar-nav ms-auto">
             <li class="nav-item">
                 <a class="nav-link" routerLink="/" >Home</a>
@@ -14,9 +14,9 @@
                 <a class="nav-link" routerLink="/documents">Documentos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/documents">Vincular Rede Social</a>
+                <a class="nav-link" href="#">Vincular Rede Social</a>
             <li class="nav-item">
-            <a class="nav-link" routerLink="/documents">E-Sports</a>
+            <a class="nav-link" routerLink="/esports">E-Sports</a>
             </li>
             </ul>
             <div  *ngIf="api.isLoggedIn() | async; else loginButton">

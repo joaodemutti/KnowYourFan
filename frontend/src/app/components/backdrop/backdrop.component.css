@@ -1,0 +1,32 @@
+.spinner {
+    border: 8px solid transparent;
+    border-top: 8px solid dimgray; 
+    border-right: 8px solid dimgray;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  @keyframes spin {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  .backdrop {
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1100;
+  }
+

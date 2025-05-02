@@ -14,7 +14,6 @@ class UserUpdateRequest(BaseModel):
     name: Optional[str] = None
     facebook: Optional[str] = None
     email: Optional[str] = None
-    password: Optional[str] = None
     address: Optional[str] = None
     cpf: Optional[str] = None
     interests: Optional[List[str]] = None

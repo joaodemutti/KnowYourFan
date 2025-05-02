@@ -1,0 +1,36 @@
+<div class="container mt-4">
+
+    <!-- Title -->
+    <h1 class="mb-1">E-Sports</h1>
+  
+    <!-- Small description -->
+    <small class="text-muted d-block mb-4">Made with Gemini.</small>
+  
+    <!-- Paragraph with button aligned right -->
+    <div class="d-flex justify-content-between align-items-center mb-5">
+      <p class="mb-0">
+        Vincule sua rede social e acesse conteúdo E-Sports relevante ao seu perfil e interesses.
+      </p>
+      <app-facebook-login></app-facebook-login>
+    </div>
+  
+    <!-- Centered GO button -->
+    <div class="text-center mt-5">
+      <button class="btn btn-primary" (click)="onGoClick()">GO</button>
+    </div>
+  
+    <!-- Pedido section -->
+    <h5 class="mb-2">Pedido/Interesses</h5>
+    <div class="tags-container mt-1 container-sm mb-2">
+        <span *ngFor="let interest of interests" class="badge bg-primary me-2">
+          {{ interest }} 
+        </span> 
+    </div>
+    <textarea #requestTextArea class="form-control mb-4 mt-1" rows="1" [readonly]="true" [(ngModel)]="request"></textarea>
+
+    <h5 class="mb-2">Resposta</h5>
+    <textarea #responseTextArea class="form-control mb-5" rows="1" [readonly]="true" [(ngModel)]="response"></textarea>
+
+  
+  </div>
+  

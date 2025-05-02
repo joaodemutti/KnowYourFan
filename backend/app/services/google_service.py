@@ -20,7 +20,7 @@ def encode_image_bytes_to_base64(image_bytes: bytes) -> str:
     return base64.b64encode(image_bytes).decode("utf-8")
 
 
-async def validate_document_image_bytes(image_bytes: bytes, ext: str = "png", prompt: str = "isso é um documento Brasileiro? 0 ou 1") -> str | None:
+async def validate_document_image_bytes(image_bytes: bytes, ext: str = "png", prompt: str = "isso é um documento Brasileiro? Responda 0 ou 1") -> str | None:
     try:
         ext = ext.lower()
         mime_type = MIME_TYPE_MAP.get(ext)
@@ -56,4 +56,34 @@ async def validate_document_image_bytes(image_bytes: bytes, ext: str = "png", pr
 
     except Exception as e:
         print(f"Error during document validation: {e}")
+        raise e
+
+
+async def get_esports_content(interests: list[str], prompt: str = "Compartilhe links de perfis relevantes em sites de E-Sports com base nesses interesses.") -> str | None:
+    try:
+        if not interests:
+            raise ValueError("A lista de interesses está vazia.")
+
+        full_prompt = f"{prompt}\nInteresses do usuário:\n{'\n'.join(interests)}"
+
+        content = {
+            "parts": [
+                {"text": full_prompt}
+            ]
+        }
+
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        response = model.generate_content(
+            contents=[content],
+            generation_config=genai.GenerationConfig(max_output_tokens=700),
+        )
+
+        if response and response.text:
+            return response.text.strip()
+        else:
+            print("Resposta vazia ou inválida de Gemini.")
+            return None
+
+    except Exception as e:
+        print(f"Erro ao gerar conteúdo de E-Sports: {e}")
         raise e

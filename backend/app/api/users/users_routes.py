@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends
-from app.api.user.commands.create_user import CreateUserHandler
-from app.api.user.queries.get_user import GetUserHandler
-from app.api.user.queries.get_users import GetUsersHandler
-from app.api.user.commands.update_user import UpdateUserHandler 
+from app.api.users.commands.create_user import CreateUserHandler
+from app.api.users.queries.get_user import GetUserHandler
+from app.api.users.queries.get_users import GetUsersHandler
+from app.api.users.commands.update_user import UpdateUserHandler 
 from app.models.user_model import UserCreateRequest, UserResponse, UserDetailResponse, UserUpdateRequest
 from typing import List
 from app.api.auth.dependency import get_current_user

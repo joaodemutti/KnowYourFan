@@ -7,8 +7,6 @@ class UpdateUserCommand:
     def __init__(self, user_data: UserUpdateRequest,user_id:str):
         self.user_data = user_data
         self.user_id = user_id
-        if(self.user_data.password):
-            self.user_data.password = bcrypt.hash(self.user.password)
         
     def execute(self):
         users = UserRepository()

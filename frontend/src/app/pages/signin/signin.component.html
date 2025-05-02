@@ -11,7 +11,8 @@
           name="email" 
           required 
           aria-describedby="emailHelp"
-          #email="ngModel">
+          #email="ngModel"
+          (keydown.enter)="nameInput.focus(); $event.preventDefault();">
         <div *ngIf="email.invalid && email.touched" class="text-danger">Email is required</div>
       </div>
   
@@ -25,7 +26,9 @@
           [(ngModel)]="user.name" 
           name="name" 
           required
-          #name="ngModel">
+          #name="ngModel"
+          #nameInput
+          (keydown.enter)="addressInput.focus(); $event.preventDefault();">
         <div *ngIf="name.invalid && name.touched" class="text-danger">Name is required</div>
       </div>
   
@@ -37,7 +40,9 @@
           class="form-control" 
           id="address" 
           [(ngModel)]="user.address" 
-          name="address">
+          name="address"
+          #addressInput
+          (keydown.enter)="cpfInput.focus(); $event.preventDefault();">
       </div>
   
       <!-- CPF Field -->
@@ -48,7 +53,9 @@
           class="form-control" 
           id="cpf" 
           [(ngModel)]="user.cpf" 
-          name="cpf">
+          name="cpf"
+          #cpfInput
+          (keydown.enter)="interestsInput.focus(); $event.preventDefault();">
       </div>
   
       <!-- Interests Field -->
@@ -60,9 +67,10 @@
             class="form-control" 
             id="interests" 
             [(ngModel)]="newInterest" 
-            (keydown.enter)="addInterest()" 
+            (keydown.enter)="addInterest(); $event.preventDefault();" 
             placeholder="Press Enter to add interest"
-            name="interests">
+            name="interests"
+            #interestsInput>
           
           <!-- Display Tags -->
           <div class="tags-container mt-2">
@@ -84,15 +92,25 @@
           [(ngModel)]="user.password" 
           name="password" 
           required
-          #password="ngModel">
+          #password="ngModel"
+          (keydown.enter)="submitButton.nativeElement.focus(); $event.preventDefault();">
         <div *ngIf="password.invalid && password.touched" class="text-danger">Password is required</div>
       </div>
-      
       <!-- Submit Button -->
-      <div class="d-flex flex-column justify-content-center align-items-center mt-5 mb-3">
-        <button type="submit" class="btn btn-dark" [disabled]="signinForm.invalid">Salvar</button>
-        <a id="login" class="form-text mt-3" routerLink="/login">Já tem uma conta? Faça Login</a>
+      <div class="d-flex flex-column justify-content-center align-items-center mt-5 mb-3" *ngIf="!(api.isLoggedIn() | async); else saveButton">
+        <button type="submit" class="btn btn-dark" [disabled]="signinForm.invalid" #submitButton>Cadastrar-se</button>
+        <a class="form-text mt-3" routerLink="/login">Já tem uma conta? Faça Login</a>
       </div>
+
+      <ng-template #saveButton>
+      <div class="d-flex flex-column justify-content-center align-items-center mt-5 mb-3">
+
+        <button type="submit" class="btn btn-dark" [disabled]="signinForm.invalid">Salvar</button>
+        
+      </div>
+      </ng-template>
+
     </form>
+      
   </div>
   
