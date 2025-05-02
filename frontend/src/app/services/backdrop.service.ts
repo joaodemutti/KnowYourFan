@@ -13,7 +13,9 @@ export class BackdropService {
   }
 
   hide(): void {
-    this._visible$.next(false);
+    setTimeout(()=>{
+      this._visible$.next(false);
+    },100)
   }
 
   toggle(): void {
