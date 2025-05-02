@@ -61,8 +61,7 @@ export class SigninComponent implements OnInit {
   onSubmit() {
     this.api.isLoggedIn().subscribe(isLoggedOn=>{
       if(isLoggedOn){
-        console.log("UPDATE")
-        this.api.update(this.user).subscribe(r=>{console.log(r)})
+        this.api.update(this.user).subscribe()
       }
       else{
           this.api.create(this.user).subscribe(r=>{
