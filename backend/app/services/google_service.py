@@ -64,7 +64,7 @@ async def get_esports_content(interests: list[str], prompt: str = "Compartilhe l
         if not interests:
             raise ValueError("A lista de interesses está vazia.")
 
-        full_prompt = f"{prompt}\nInteresses do usuário:\n{'\\n'.join(interests)}"
+        full_prompt = prompt+"\nInteresses do usuário:\n" +"\n".join(interests)
 
         content = {
             "parts": [
