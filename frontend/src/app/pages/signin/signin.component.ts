@@ -67,7 +67,7 @@ export class SigninComponent implements OnInit {
       }
       else{
           this.api.create(this.user).subscribe(r=>{
-            this.router.navigate(["/"])
+            this.router.navigate(["/login"])
           })
       }
     })
