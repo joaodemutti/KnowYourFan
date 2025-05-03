@@ -60,8 +60,10 @@ export class SigninComponent implements OnInit {
 
   onSubmit() {
     this.api.isLoggedIn().subscribe(isLoggedOn=>{
+      console.log("TESTE")
       if(isLoggedOn){
         this.api.update(this.user).subscribe(()=>{
+          console.log("TESTE")
           this.backdrop.hide();
         })
       }
