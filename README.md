@@ -134,5 +134,5 @@ src/
 #### Página E-Sports:
 ![image](https://github.com/user-attachments/assets/3f055b21-0dac-4945-b95a-526fd2351305)
 > Funcionalidades
-> - Acesso de conteúdo E-Sports personalizado por IA (Gemini)
+> - Acesso a conteúdo E-Sports personalizado por IA (Gemini)
 <br>
