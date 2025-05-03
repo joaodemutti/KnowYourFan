@@ -116,12 +116,9 @@ export class DocumentsComponent implements OnInit {
       if (r === "1") {
         this.documentValid = true;
         alert("Documento Válido.")
-      } else if(r == "0") {
-        this.documentValid = false;
-        alert("Documento Inválido.")
       } else {
         this.documentValid = false;
-        alert(r);
+        alert("Documento Inválido.")
       }
       this.loadDocuments();
     });
