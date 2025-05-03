@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { BackdropService } from '../../services/backdrop.service';
 
 
@@ -14,12 +14,13 @@ export class BackdropComponent {
   @ViewChild('backdropRef') backdropRef!: ElementRef<HTMLDivElement>;
   isVisible = false;
 
-  constructor(private backdropService: BackdropService) {}
+  constructor(private backdropService: BackdropService,private cdr: ChangeDetectorRef) {}
 
   ngAfterViewInit() {
     this.backdropService.visible$.subscribe((visible) => {
       this.isVisible = visible;
       // Optional direct DOM manipulation (if needed):
+      this.cdr.detectChanges()
       // this.backdropRef.nativeElement.style.display = visible ? 'block' : 'none';
     });
   }
