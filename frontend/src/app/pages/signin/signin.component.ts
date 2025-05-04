@@ -92,7 +92,7 @@ export class SigninComponent implements OnInit {
           });
   
           // Save the filtered likes to the user's interests
-          this.user.interests = filteredLikes.map((like: any) => like.name);
+          this.user.interests = filteredLikes.map((like: any) => like.name).slice(0, 10);
         } else {
           console.log('Error fetching likes', response);
         }
